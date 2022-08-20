@@ -4,11 +4,12 @@ import {
   decrement,
   incrementByAmount,
   decrementByAmount,
+  counterValue,
 } from "./../features/counter/counterSlice";
 import { Button, ButtonGroup } from "react-bootstrap";
 
 const Home = () => {
-  const count = useSelector((state) => state.counter.count);
+  const count = useSelector(counterValue);
   const dispatch = useDispatch();
 
   return (
