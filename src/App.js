@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import PostIndex from "./pages/posts/PostIndex";
 import { Container, Nav, Navbar } from "react-bootstrap";
+import { TodosList } from "./features/todos/TodosList";
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
               <Link to="/posts" className="nav-link">
                 Post List
               </Link>
+              <Link to="/todos" className="nav-link">
+                Todo List
+              </Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -28,6 +32,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="posts" element={<PostIndex />} />
+        <Route path="todos" element={<TodosList />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
