@@ -42,8 +42,17 @@ export const TodosList = () => {
                   <td>{todo.comment}</td>
                   <td>{todo.created_at}</td>
                   <td>
-                    <Link to={`/todos/${todo.id}`} className="btn btn-primary">
+                    <Link
+                      to={`/todos/${todo.id}`}
+                      className="btn btn-sm btn-primary me-1"
+                    >
                       View
+                    </Link>
+                    <Link
+                      to={`/todos/${todo.id}/edit`}
+                      className="btn btn-sm btn-success"
+                    >
+                      Edit
                     </Link>
                   </td>
                 </tr>

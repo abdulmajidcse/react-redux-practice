@@ -9,18 +9,21 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://abdulmajid.xyz/api/v1",
   }),
-  tagTypes: ["todos", "todo"],
+  tagTypes: ["todos"],
   // The "endpoints" represent operations and requests for this server
   endpoints: (builder) => ({
     // The `getTodos` endpoint is a "query" operation that returns data
     getTodos: builder.query({
       // The URL for the request is 'https://abdulmajid.xyz/api/v1/todos'
       query: () => "/todos",
-      providesTags: ["todos"],
+      providesTags: (result = [], error, arg) => [
+        "todos",
+        ...result.data.map(({ id }) => ({ type: "todos", id })),
+      ],
     }),
     getTodo: builder.query({
       query: (todoId) => `/todos/${todoId}`,
-      providesTags: ["todo"],
+      providesTags: (result, error, arg) => [{ type: "todos", id: arg }],
     }),
     storeTodo: builder.mutation({
       query: (formData) => ({
@@ -28,11 +31,23 @@ export const apiSlice = createApi({
         method: "POST",
         body: formData,
       }),
-      invalidatesTags: ["todos", "todo"],
+      invalidatesTags: ["todos"],
+    }),
+    updateTodo: builder.mutation({
+      query: (todo) => ({
+        url: `/todos/${todo.id}`,
+        method: "PUT",
+        body: todo,
+      }),
+      invalidatesTags: (result, error, arg) => [{ type: "todos", id: arg.id }],
     }),
   }),
 });
 
 // Export the auto-generated hook for the `getTodos` query endpoint
-export const { useGetTodosQuery, useGetTodoQuery, useStoreTodoMutation } =
-  apiSlice;
+export const {
+  useGetTodosQuery,
+  useGetTodoQuery,
+  useStoreTodoMutation,
+  useUpdateTodoMutation,
+} = apiSlice;

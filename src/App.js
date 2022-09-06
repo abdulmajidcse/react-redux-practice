@@ -6,6 +6,7 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { TodosList } from "./features/todos/TodosList";
 import { TodoView } from "./features/todos/TodoView";
 import TodoCreate from "./features/todos/TodoCreate";
+import TodoEdit from "./features/todos/TodoEdit";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
         <Route path="todos" element={<TodosList />} />
         <Route path="todos/create" element={<TodoCreate />} />
         <Route path="todos/:todoId" element={<TodoView />} />
+        <Route path="todos/:todoId/edit" element={<TodoEdit />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
