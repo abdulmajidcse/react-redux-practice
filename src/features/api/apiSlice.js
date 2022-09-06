@@ -9,15 +9,18 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://abdulmajid.xyz/api/v1",
   }),
+  tagTypes: ["todos", "todo"],
   // The "endpoints" represent operations and requests for this server
   endpoints: (builder) => ({
     // The `getTodos` endpoint is a "query" operation that returns data
     getTodos: builder.query({
       // The URL for the request is 'https://abdulmajid.xyz/api/v1/todos'
       query: () => "/todos",
+      providesTags: ["todos"],
     }),
     getTodo: builder.query({
       query: (todoId) => `/todos/${todoId}`,
+      providesTags: ["todo"],
     }),
     storeTodo: builder.mutation({
       query: (formData) => ({
@@ -25,6 +28,7 @@ export const apiSlice = createApi({
         method: "POST",
         body: formData,
       }),
+      invalidatesTags: ["todos", "todo"],
     }),
   }),
 });
