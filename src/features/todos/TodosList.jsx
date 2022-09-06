@@ -3,9 +3,10 @@ import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export const TodosList = () => {
-  const { data, isLoading, isSuccess, isError, error } = useGetTodosQuery();
+  const { data, isLoading, isSuccess, isError, error, refetch, isFetching } =
+    useGetTodosQuery();
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return (
       <>
         <p>Loading...</p>
@@ -14,7 +15,12 @@ export const TodosList = () => {
   } else if (isSuccess) {
     return (
       <>
-        <h2>Todo List</h2>
+        <h2>
+          Todo List{" "}
+          <button type="button" className="btn btn-danger" onClick={refetch}>
+            Reload Data
+          </button>
+        </h2>
         <Table striped bordered hover responsive>
           <thead>
             <tr>
