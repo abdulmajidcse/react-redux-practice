@@ -1,5 +1,6 @@
 import { useGetTodosQuery } from "../api/apiSlice";
 import { Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export const TodosList = () => {
   const { data, isLoading, isSuccess, isError, error } = useGetTodosQuery();
@@ -22,18 +23,32 @@ export const TodosList = () => {
               <th>Note</th>
               <th>Comment</th>
               <th>Created Date</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {data.data?.map((todo, index) => (
-              <tr key={index}>
-                <td>{++index}</td>
-                <td>{todo.title}</td>
-                <td>{todo.note}</td>
-                <td>{todo.comment}</td>
-                <td>{todo.created_at}</td>
+            {data.data ? (
+              data.data.map((todo, index) => (
+                <tr key={index}>
+                  <td>{++index}</td>
+                  <td>{todo.title}</td>
+                  <td>{todo.note}</td>
+                  <td>{todo.comment}</td>
+                  <td>{todo.created_at}</td>
+                  <td>
+                    <Link to={`/todos/${todo.id}`} className="btn btn-primary">
+                      View
+                    </Link>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td className="text-center text-danger" colSpan={100}>
+                  No Data Available.
+                </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </Table>
       </>
@@ -41,7 +56,7 @@ export const TodosList = () => {
   } else if (isError) {
     return (
       <>
-        <p>{error.data.message}</p>
+        <p>Something went wrong to fetch.</p>
       </>
     );
   }

@@ -4,6 +4,8 @@ import NotFound from "./pages/NotFound";
 import PostIndex from "./pages/posts/PostIndex";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { TodosList } from "./features/todos/TodosList";
+import { TodoView } from "./features/todos/TodoView";
+import TodoCreate from "./features/todos/TodoCreate";
 
 function App() {
   return (
@@ -22,6 +24,9 @@ function App() {
               <Link to="/posts" className="nav-link">
                 Post List
               </Link>
+              <Link to="/todos/create" className="nav-link">
+                New Todo
+              </Link>
               <Link to="/todos" className="nav-link">
                 Todo List
               </Link>
@@ -33,6 +38,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="posts" element={<PostIndex />} />
         <Route path="todos" element={<TodosList />} />
+        <Route path="todos/create" element={<TodoCreate />} />
+        <Route path="todos/:todoId" element={<TodoView />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
